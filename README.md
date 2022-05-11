@@ -1,2 +1,2 @@
-# camunda_loan_broker
+# Camunda Loan Broker
 Implement the Loan Broker integration example with Camunda 7
