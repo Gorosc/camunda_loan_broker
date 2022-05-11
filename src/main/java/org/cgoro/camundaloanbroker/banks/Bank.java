@@ -1,9 +1,11 @@
 package org.cgoro.camundaloanbroker.banks;
 
-public enum Bank {
-    BANK_RECIPIENT_UNIVERSAL(70000, 500, "Universal", 4),
-    BANK_RECIPIENT_PAWNSHOP(50000, 400, "Pawnshop", 5),
-    BANK_RECIPIENT_PREMIUM(900000, 600, "Premium", 3);
+public class Bank {
+
+    private int maxLoanAmount;
+    private int minCreditScore;
+    private String bankId;
+    private int baseRate;
 
     Bank(int maxLoanAmount, int minCreditScore, String bankId, int baseRate) {
         this.maxLoanAmount = maxLoanAmount;
@@ -12,8 +14,35 @@ public enum Bank {
         this.baseRate = baseRate;
     }
 
-    int maxLoanAmount;
-    int minCreditScore;
-    String bankId;
-    int baseRate;
+    public int getMaxLoanAmount() {
+        return maxLoanAmount;
+    }
+
+    public void setMaxLoanAmount(int maxLoanAmount) {
+        this.maxLoanAmount = maxLoanAmount;
+    }
+
+    public int getMinCreditScore() {
+        return minCreditScore;
+    }
+
+    public void setMinCreditScore(int minCreditScore) {
+        this.minCreditScore = minCreditScore;
+    }
+
+    public String getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(String bankId) {
+        this.bankId = bankId;
+    }
+
+    public int getBaseRate() {
+        return baseRate;
+    }
+
+    public void setBaseRate(int baseRate) {
+        this.baseRate = baseRate;
+    }
 }

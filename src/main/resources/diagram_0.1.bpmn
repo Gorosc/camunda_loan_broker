@@ -4,8 +4,8 @@
     <bpmn:startEvent id="Loan_Broker_Start_Event_1" name="Loan Request">
       <bpmn:outgoing>Flow_071cbvt</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_071cbvt" sourceRef="Loan_Broker_Start_Event_1" targetRef="Activity_0qh7ips" />
-    <bpmn:serviceTask id="Activity_0qh7ips" name="Get Credit Score">
+    <bpmn:sequenceFlow id="Flow_071cbvt" sourceRef="Loan_Broker_Start_Event_1" targetRef="get_credit_Score" />
+    <bpmn:serviceTask id="get_credit_Score" name="Get Credit Score">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
@@ -34,9 +34,9 @@
       <bpmn:outgoing>Flow_15y74dq</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Loan_Broker_End_Event" name="Loan Result">
-      <bpmn:incoming>Flow_1iiwc2o</bpmn:incoming>
+      <bpmn:incoming>Flow_170m0kq</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_15y74dq" sourceRef="Activity_0qh7ips" targetRef="get_bank_list" />
+    <bpmn:sequenceFlow id="Flow_15y74dq" sourceRef="get_credit_Score" targetRef="get_bank_list" />
     <bpmn:serviceTask id="get_bank_list" name="Get Bank List">
       <bpmn:extensionElements>
         <camunda:connector>
@@ -51,9 +51,36 @@
         </camunda:connector>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_15y74dq</bpmn:incoming>
-      <bpmn:outgoing>Flow_1iiwc2o</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ftyabk</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1iiwc2o" sourceRef="get_bank_list" targetRef="Loan_Broker_End_Event" />
+    <bpmn:serviceTask id="get_bank_quotes" name="Get Quotes">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript" resource="submitQuoteRequest.js" />
+            </camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-type">application/json</camunda:entry>
+                <camunda:entry key="Accept">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8080/bank/quote/${bank.prop("bankId").value()}</camunda:inputParameter>
+            <camunda:outputParameter name="quote">
+              <camunda:script scriptFormat="JavaScript" resource="parseQuote.js" />
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ftyabk</bpmn:incoming>
+      <bpmn:outgoing>Flow_170m0kq</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="${bankList.elements()}" camunda:elementVariable="bank" />
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1ftyabk" sourceRef="get_bank_list" targetRef="get_bank_quotes" />
+    <bpmn:sequenceFlow id="Flow_170m0kq" sourceRef="get_bank_quotes" targetRef="Loan_Broker_End_Event" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="loan_broker">
@@ -65,9 +92,13 @@
         <di:waypoint x="430" y="118" />
         <di:waypoint x="550" y="118" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1iiwc2o_di" bpmnElement="Flow_1iiwc2o">
+      <bpmndi:BPMNEdge id="Flow_1ftyabk_di" bpmnElement="Flow_1ftyabk">
         <di:waypoint x="650" y="118" />
-        <di:waypoint x="762" y="118" />
+        <di:waypoint x="770" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_170m0kq_di" bpmnElement="Flow_170m0kq">
+        <di:waypoint x="870" y="118" />
+        <di:waypoint x="952" y="118" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="Loan_Broker_Start_Event_1">
         <dc:Bounds x="179" y="100" width="36" height="36" />
@@ -75,16 +106,19 @@
           <dc:Bounds x="162" y="143" width="70" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0dx0e40_di" bpmnElement="Activity_0qh7ips">
+      <bpmndi:BPMNShape id="Activity_0dx0e40_di" bpmnElement="get_credit_Score">
         <dc:Bounds x="330" y="78" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1ljkbx9_di" bpmnElement="get_bank_list">
         <dc:Bounds x="550" y="78" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0utkonl_di" bpmnElement="get_bank_quotes">
+        <dc:Bounds x="770" y="78" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_10aon76_di" bpmnElement="Loan_Broker_End_Event">
-        <dc:Bounds x="762" y="100" width="36" height="36" />
+        <dc:Bounds x="952" y="100" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="752" y="143" width="60" height="14" />
+          <dc:Bounds x="940" y="76" width="60" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>

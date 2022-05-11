@@ -12,18 +12,18 @@ public class BankController {
 
     @GetMapping("/bank")
     public List<Bank> getBanks() {
-        return Arrays.asList(Bank.values());
+        return Arrays.stream(AvailableBanks.values()).map(AvailableBanks::getBank).collect(java.util.stream.Collectors.toList());
     }
 
     @PostMapping("/bank/quote/{bank}")
-    public Quote getQuote(@RequestBody QuoteRequest quoteRequest, @PathVariable Bank bank) {
-        double rate = calcRate(bank, quoteRequest.getAmount(), quoteRequest.getTerm(), quoteRequest.getCreditScore());
-        return new Quote(bank.bankId, rate);
+    public Quote getQuote(@RequestBody QuoteRequest quoteRequest, @PathVariable AvailableBanks bank) {
+        double rate = calcRate(bank, quoteRequest.getAmount(), quoteRequest.getCreditScore());
+        return new Quote(bank.getBank().getBankId(), rate);
     }
 
-    private double calcRate(Bank bank, int amount,int term,int  score) {
-        if (amount <= bank.maxLoanAmount && score >= bank.minCreditScore) {
-            return bank.baseRate + Math.random() * ((1000 - score) / 100.0);
+    private double calcRate(AvailableBanks bank, int amount,int  score) {
+        if (amount <= bank.getBank().getMaxLoanAmount() && score >= bank.getBank().getMinCreditScore()) {
+            return bank.getBank().getBaseRate() + Math.random() * ((1000 - score) / 100.0);
         } else return -1.0; //Negative rate indicates that the loan cannot be approved
     }
 }
