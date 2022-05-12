@@ -5,6 +5,12 @@ public class CreditScoreRequest {
     int amount;
     int term;
 
+    public CreditScoreRequest(int taxNumber, int amount, int term) {
+        this.taxNumber = taxNumber;
+        this.amount = amount;
+        this.term = term;
+    }
+
     public int getTaxNumber() {
         return taxNumber;
     }

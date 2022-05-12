@@ -5,6 +5,12 @@ public class CreditScore {
     int creditScore;
     int history;
 
+    public CreditScore(int taxNumber, int creditScore, int history) {
+        this.taxNumber = taxNumber;
+        this.creditScore = creditScore;
+        this.history = history;
+    }
+
     public int getTaxNumber() {
         return taxNumber;
     }
@@ -28,4 +34,6 @@ public class CreditScore {
     public void setHistory(int history) {
         this.history = history;
     }
+
+
 }
