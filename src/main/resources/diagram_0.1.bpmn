@@ -84,21 +84,21 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="loan_broker">
-      <bpmndi:BPMNEdge id="Flow_071cbvt_di" bpmnElement="Flow_071cbvt">
-        <di:waypoint x="215" y="118" />
-        <di:waypoint x="330" y="118" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_15y74dq_di" bpmnElement="Flow_15y74dq">
-        <di:waypoint x="430" y="118" />
-        <di:waypoint x="550" y="118" />
+      <bpmndi:BPMNEdge id="Flow_078rff4_di" bpmnElement="Flow_078rff4">
+        <di:waypoint x="870" y="118" />
+        <di:waypoint x="992" y="118" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ftyabk_di" bpmnElement="Flow_1ftyabk">
         <di:waypoint x="650" y="118" />
         <di:waypoint x="770" y="118" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_078rff4_di" bpmnElement="Flow_078rff4">
-        <di:waypoint x="870" y="118" />
-        <di:waypoint x="992" y="118" />
+      <bpmndi:BPMNEdge id="Flow_15y74dq_di" bpmnElement="Flow_15y74dq">
+        <di:waypoint x="430" y="118" />
+        <di:waypoint x="550" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_071cbvt_di" bpmnElement="Flow_071cbvt">
+        <di:waypoint x="215" y="118" />
+        <di:waypoint x="330" y="118" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="Loan_Broker_Start_Event_1">
         <dc:Bounds x="179" y="100" width="36" height="36" />

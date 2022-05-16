@@ -5,3 +5,10 @@ camunda.bpm:
     firstName: Demo
   filter:
     create: All tasks
+  #eventing:
+  #  execution: true
+
+loan.broker:
+  credit.url:
+    host: localhost
+    port: 8080

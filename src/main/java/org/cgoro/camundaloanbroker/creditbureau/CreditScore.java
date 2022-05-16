@@ -5,6 +5,8 @@ public class CreditScore {
     int creditScore;
     int history;
 
+    public CreditScore() {}
+
     public CreditScore(int taxNumber, int creditScore, int history) {
         this.taxNumber = taxNumber;
         this.creditScore = creditScore;

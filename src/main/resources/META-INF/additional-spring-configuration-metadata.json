@@ -1,0 +1,8 @@
+{
+  "properties": [
+	{
+	  "name": "loan.broker.credit.url",
+	  "type": "java.lang.String",
+	  "description": "The url of the credit bureau get credit score service"
+	}
+  ] }

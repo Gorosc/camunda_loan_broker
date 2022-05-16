@@ -17,11 +17,11 @@ public class CreditBureauController {
         int max = 900;
         Random r = SecureRandom.getInstanceStrong();
 
-        return  new CreditScore(
-                creditScoreRequest.getTaxNumber(),
-                r.nextInt(max - min) + min,
-                r.nextInt(9) + 1
-                );
+        CreditScore creditScoreResponse = new CreditScore();
+        creditScoreResponse.setCreditScore(r.nextInt(max - min) + min); //Random credit score between 100 and 900
+        creditScoreResponse.setTaxNumber(creditScoreRequest.getTaxNumber());
+        creditScoreResponse.setHistory(r.nextInt(9) + 1); ///Random history between 1 and 9
+        return creditScoreResponse;
     }
 
 }
