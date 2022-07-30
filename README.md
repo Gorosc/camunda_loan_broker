@@ -1,6 +1,9 @@
 # Camunda Loan Brker
 Implement the Loan Broker integration example with Camunda 7
 
+How to start:
+`mvn compile spring-boot:run`
+
 ## High Level View
 ![image](https://user-images.githubusercontent.com/28674910/168244265-2b8577c4-fb98-4296-bbc2-d1789823815a.png)
 
