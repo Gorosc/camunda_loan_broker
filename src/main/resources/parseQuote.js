@@ -9,6 +9,6 @@ if (status < 200 || status > 299) {
 
 var rate = S(response).prop("rate").value();
 
-connector.setVariable(S('{"rate":' + rate + '}'));
+connector.setVariable(bankId, S('{"rate":' + rate + '}'));
 
 rate;
